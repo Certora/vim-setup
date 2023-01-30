@@ -1,0 +1,6 @@
+# Ignore pycache
+__pycache__
+*.pyc
+
+# Ignore certora internal
+.certora_internal
