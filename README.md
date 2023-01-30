@@ -4,8 +4,8 @@ Basic vim setup for using Certora Verification Language (CVL).
 Provides basic syntax highlighting and primitive linting for CVL.
 
 ## Requirements
-- Installed vim with Python3 support (run `vim --version` and check the output contains `+python3`)
-- For linting, the [ALE plugin](https://github.com/dense-analysis/ale)
+- Installed vim with Python3 support by running `vim --version` and checking the output contains `+python3`
+- For linting, the [ALE vim plugin](https://github.com/dense-analysis/ale) is needed
 
 For linting one **must specify the contract in the first line of the `.spec` file**, like so:
 
@@ -19,7 +19,7 @@ The path to the solidity file can be relative to the `.spec` file.
 Clone the repository and either:
 
 - copy the files to their respective folders under the `.vim\` directory, or
-- add symlinks to the respective files/folders, for example:
+- add symlinks to the respective files/folders, for example:  
   `ln -s vim-setup/after/ale_linters ~/.vim/after/ale_linters`
 
 ## Caveats
