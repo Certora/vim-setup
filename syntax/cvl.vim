@@ -18,15 +18,16 @@ endif
 syntax keyword cvlSolType address bool strings
 " Types unique to CVL
 syntax keyword cvlOnlyType method calldataarg env mathint storage
+syntax keyword cvlTypedef ghost
 
-syntax keyword cvlStatement rule function definition nextgroup=cvlFunction
+syntax keyword cvlStatement rule function definition invariant preserved nextgroup=cvlFunction
 syntax keyword cvlStatement methods
 syntax keyword cvlLabel envfree override
-syntax keyword cvlKeyword require returns
+syntax keyword cvlKeyword require returns forall havoc axiom requireInvariant with
 syntax keyword cvlException assert
 
 " Recognize TODO inside comment - will be recognized only if contained
-syntax keyword cvlTodo TODO contained
+syntax keyword cvlTodo TODO FIXME NOTE contained
 
 
 " Matches
@@ -53,6 +54,7 @@ syntax region cvlComment start="/\*" end="\*/" contains=@Spell,cvlTodo
 " Set as known groups.
 highlight default link cvlSolType Type
 highlight default link cvlOnlyType Type
+highlight default link cvlTypedef Typedef
 highlight default link cvlStatement Statement
 highlight default link cvlKeyword Keyword
 highlight default link cvlLabel Label
