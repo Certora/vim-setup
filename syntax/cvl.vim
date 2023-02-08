@@ -23,7 +23,7 @@ syntax keyword cvlTypedef ghost
 syntax keyword cvlStatement rule function definition invariant preserved nextgroup=cvlFunction
 syntax keyword cvlStatement methods
 syntax keyword cvlLabel envfree override
-syntax keyword cvlKeyword require returns forall havoc axiom requireInvariant with
+syntax keyword cvlKeyword require returns forall havoc axiom requireInvariant with if
 syntax keyword cvlException assert
 
 " Recognize TODO inside comment - will be recognized only if contained
