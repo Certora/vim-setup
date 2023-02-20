@@ -18,13 +18,17 @@ endif
 syntax keyword cvlSolType address bool strings
 " Types unique to CVL
 syntax keyword cvlOnlyType method calldataarg env mathint storage
-syntax keyword cvlTypedef ghost
+syntax keyword cvlTypedef ghost sort
 
-syntax keyword cvlStatement rule function definition invariant preserved nextgroup=cvlFunction
-syntax keyword cvlStatement methods
+syntax keyword cvlStatement rule function definition invariant hook nextgroup=cvlFunction
+syntax keyword cvlStatement methods preserved
 syntax keyword cvlLabel envfree override
-syntax keyword cvlKeyword require returns forall havoc axiom requireInvariant with if
+syntax keyword cvlKeyword require returns return forall havoc requireInvariant with if using as filtered import
+syntax keyword cvlKeyword axiom init_state assuming
 syntax keyword cvlException assert
+syntax keyword cvlConstant true false
+syntax keyword cvlConstant currentContract lastReverted
+syntax keyword cvlStorageClass STORAGE KEY
 
 " Recognize TODO inside comment - will be recognized only if contained
 syntax keyword cvlTodo TODO FIXME NOTE contained
@@ -36,9 +40,11 @@ syntax match cvlNumber "\v<\d+>"
 
 syntax match cvlFunction " \+\w\+" contained
 
-syntax match cvlSolType "int\w*\|uint\w*\|bytes\w*"
+syntax match cvlSolType "\<int\w*\|uint\w*\|bytes\w*"
 
 syntax match cvlComment "//.*" contains=@Spell,cvlTodo
+
+syntax match cvlPreProc "@withrevert\|@norevert\|@new\|@old"
 
 
 " Regions
@@ -64,3 +70,6 @@ highlight default link cvlNumber Number
 highlight default link cvlFunction Function
 highlight default link cvlComment Comment
 highlight default link cvlString String
+highlight default link cvlConstant Constant
+highlight default link cvlPreProc PreProc
+highlight default link cvlStorageClass StorageClass
