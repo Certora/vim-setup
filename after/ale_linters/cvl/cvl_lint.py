@@ -175,7 +175,6 @@ class ErrorMessages(Sequence):  # Sequence[ErrorMessage]
 # cvl linter
 # ==============================================================================
 class CVLLinter:
-
     # certoraRun command
     _CMD = "certoraRun"
     _VERIFY_OPTION = "--verify"
@@ -285,9 +284,14 @@ class CVLLinter:
             return 0
 
         start_time = datetime.now()
-        result = subprocess.run(
-            self._gen_cmd_args(), cwd=self._working_dir, capture_output=True
-        )
+        try:
+            cmd_args = self._gen_cmd_args()
+            result = subprocess.run(
+                cmd_args, cwd=self._working_dir, capture_output=True
+            )
+        except FileNotFoundError:
+            print(f"An error occurred while running command {cmd_args}")
+            raise
         if result.returncode != 0:
             pass  # TODO: check return code?
 
