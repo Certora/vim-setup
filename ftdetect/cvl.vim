@@ -3,5 +3,5 @@
 autocmd BufRead,BufNewFile *.spec,*.cvl set filetype=cvl
 
 " Improve comment syntax highlighting (avoid missing comment region)
-" see :help :syn-sync-ccomment
- autocmd BufReadPost,BufNewFile *.spec,*.cvl syntax sync ccomment cvlComment
+" Syncing the syntax highlighting. If fromstart is too slow, see :help :syn-sync-ccomment
+autocmd BufReadPost,BufNewFile *.spec,*.cvl syntax sync fromstart
