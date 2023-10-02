@@ -24,25 +24,34 @@ syntax keyword cvlSolType address bool string
 syntax keyword cvlSolType mapping nextgroup=cvlMappingDef
 
 " Types unique to CVL
-syntax keyword cvlOnlyType method calldataarg env mathint storage
+syntax keyword cvlOnlyType method calldataarg env mathint
 syntax keyword cvlTypedef ghost sort
 
 syntax keyword cvlStatement rule function definition invariant hook nextgroup=cvlFunction
 syntax keyword cvlStatement methods preserved
 syntax keyword cvlLabel envfree override
 syntax keyword cvlKeyword require returns return forall havoc requireInvariant
-syntax keyword cvlKeyword with if else using as filtered import at
+syntax keyword cvlKeyword external internal expect
+syntax keyword cvlKeyword with if else filtered at
 syntax keyword cvlKeyword axiom init_state assuming
-syntax keyword cvlException assert
+syntax keyword cvlKeyword builtin
+syntax keyword cvlInclude using as import use
+syntax keyword cvlException assert satisfy
 syntax keyword cvlConstant true false
-syntax keyword cvlConstant currentContract lastReverted lastStorage
-syntax keyword cvlStorageClass STORAGE KEY
+syntax keyword cvlConstant currentContract lastReverted lastStorage calledContract nativeBalances
+syntax keyword cvlStorageClass STORAGE KEY memory calldata storage
+syntax keyword cvlSummary ALWAYS CONSTANT PER_CALLEE_CONSTANT NONDET HAVOC_ECF HAVOC_ALL
+syntax keyword cvlSummary DISPATCHER AUTO
+syntax keyword cvlSummaryCondition ALL UNRESOLVED
+
+" Address constants
+syntax match cvlTypeConst "max_address"
 
 " Explicit type casting
 syntax keyword cvlCasting to_uint256 to_int256 to_mathint
 
 " Recognize TODO inside comment - will be recognized only if contained
-syntax keyword cvlTodo TODO FIXME NOTE contained
+syntax keyword cvlTodo TODO FIXME NOTE CHECK contained
 
 
 " Matches
@@ -51,11 +60,15 @@ syntax keyword cvlTodo TODO FIXME NOTE contained
 
 syntax match cvlNumber "\v<\d+>"
 
-syntax match cvlFunction "\s\+\w\+" contained
+syntax match cvlFunction "\s*\<\h[a-zA-Z0-9_.]*" contained
 
-syntax match cvlSolType "\<int\w*\|uint\w*\|bytes\w*"
+syntax match cvlSolType "\<int\d*\>\|\<uint\d*\>\|\<bytes\d*\>"
 
 syntax match cvlPreProc "@withrevert\>\|@norevert\>\|@new\>\|@old\>"
+
+syntax match cvlCasting "\<to_bytes\d*\>"
+
+syntax match cvlSignature "sig:" nextgroup=cvlFunction
 
 " Recognize => as mapping operator
 syntax match cvlMappingOperator "=>" contained
@@ -78,6 +91,15 @@ syntax match cvlDocTitle "\s.*$" contained
 syntax match cvlDocTag "@param\ze\s" contained nextgroup=cvlDocParam
 syntax match cvlDocParam "\s\w\+" contained contains=@NoSpell
 
+" Integer constants
+syntax match cvlTypeConst "max_u\{,1}int\d*"
+
+" CVL2 type casting
+syntax match cvlRequireCast "require_uint\d*"
+syntax match cvlRequireCast "require_int\d*"
+syntax match cvlAssertCast "assert_uint\d*"
+syntax match cvlAssertCast "assert_int\d*"
+
 
 
 " Regions
@@ -86,7 +108,7 @@ syntax match cvlDocParam "\s\w\+" contained contains=@NoSpell
 syntax region cvlString start=/"/ end=/"/
 
 " Mapping
-syntax region cvlMappingDef start="(" end=")" contained contains=cvlMappingOperator,cvlSolType
+syntax region cvlMappingDef start="(" end=")" contained contains=cvlMappingOperator,cvlSolType,cvlOnlyType
 
 " Comment-block
 syntax region cvlComment start="/\*" end="\*/" contains=@Spell,cvlTodo,cvlCommentVerbatim
@@ -111,8 +133,13 @@ highlight default link cvlMappingOperator Type
 highlight default link cvlTypedef Typedef
 highlight default link cvlStatement Statement
 highlight default link cvlKeyword Keyword
+highlight default link cvlInclude Include
 highlight default link cvlLabel Label
+highlight default link cvlSummary Operator
+highlight default link cvlSummaryCondition Conditional
 highlight default link cvlException Exception
+highlight default link cvlAssertCast Exception
+highlight default link cvlRequireCast Keyword
 highlight default link cvlTodo Todo
 highlight default link cvlNumber Number
 highlight default link cvlFunction Function
@@ -121,6 +148,8 @@ highlight default link cvlConstant Constant
 highlight default link cvlPreProc PreProc
 highlight default link cvlStorageClass StorageClass
 highlight default link cvlCasting Constant
+highlight default link cvlTypeConst Constant
+highlight default link cvlSignature Operator
 
 " Comments
 highlight default link cvlComment Comment
@@ -132,6 +161,8 @@ highlight default link cvlDocTag Tag
 highlight default link cvlDocParam Identifier
 
 " Using markdown highlighting for other CVLDoc elements
-highlight default link cvlDocTitle markdownH2
+highlight default link cvlDocTitle markdownH3
 highlight default link cvlDocCode markdownCode
 highlight default link cvlDocEmph markdownItalic
+
+" syntax sync fromstart

@@ -26,5 +26,12 @@ setlocal smartindent  " Provides C-style indentation
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-" set expandtab - disabled since people use tabs :(
+" set expandtab - note some people use tabs :(
+set expandtab
 set fileformat=unix
+
+" UI Config
+" ---------
+" A marked column to prevent going too far, color defined below 
+setlocal colorcolumn=90
+highlight ColorColumn ctermbg=235
