@@ -25,7 +25,7 @@ syntax keyword cvlSolType mapping nextgroup=cvlMappingDef
 
 " Types unique to CVL
 syntax keyword cvlOnlyType method calldataarg env mathint
-syntax keyword cvlTypedef ghost sort
+syntax keyword cvlTypedef ghost sort persistent
 
 syntax keyword cvlStatement rule function definition invariant hook nextgroup=cvlFunction
 syntax keyword cvlStatement methods preserved
@@ -39,7 +39,7 @@ syntax keyword cvlInclude using as import use
 syntax keyword cvlException assert satisfy
 syntax keyword cvlConstant true false
 syntax keyword cvlConstant currentContract lastReverted lastStorage calledContract nativeBalances
-syntax keyword cvlStorageClass STORAGE KEY memory calldata storage
+syntax keyword cvlStorageClass STORAGE KEY INDEX memory calldata storage
 syntax keyword cvlSummary ALWAYS CONSTANT PER_CALLEE_CONSTANT NONDET HAVOC_ECF HAVOC_ALL
 syntax keyword cvlSummary DISPATCHER AUTO
 syntax keyword cvlSummaryCondition ALL UNRESOLVED
